@@ -71,6 +71,10 @@ Once the server is running, clients can connect via TCP and issue commands to pu
 - `UNSUBSCRIBE [topic]`: Unsubscribe from a topic.
 - `PUBLISH [topic] [message]`: Publish a message to a specific topic.
 
+## Architectural Design
+
+![Architectural Design](./.github/publish-subscribe.png)
+
 ## Contribution
 
 Contributions are welcome! For major changes, please open an issue first to discuss what you would like to change.
