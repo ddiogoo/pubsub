@@ -31,8 +31,8 @@ pubsub-server/
 First, clone the repository to your local machine:
 
 ```bash
-$ git clone https://github.com/yourusername/pubsub-messaging-server.git
-$ cd pubsub-messaging-server
+$ git clone https://github.com/ddiogoo/pubsub.git
+$ cd pubsub
 ```
 
 ### Build and Run
