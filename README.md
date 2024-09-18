@@ -46,7 +46,7 @@ $ mvn clean install
 2. Once compiled, run the server:
 
 ```bash
-$ mvn exec:java -Dexec.mainClass="com.example.pubsub.Server"
+$ mvn exec:java -Dexec.mainClass="com.example.pubsub.Main"
 ```
 
 The server will start and listen for client connections on a configurable TCP port.
