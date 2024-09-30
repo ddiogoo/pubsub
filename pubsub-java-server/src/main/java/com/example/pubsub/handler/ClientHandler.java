@@ -5,9 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClientHandler implements Runnable {
     private final Socket clientSocket;
+    private final static Logger logger = 
+        Logger.getLogger(ClientHandler.class.toString());
 
     public ClientHandler(Socket clientSocket) {
         this.clientSocket = clientSocket;
@@ -25,7 +29,7 @@ public class ClientHandler implements Runnable {
             while ((command = in.readLine()) != null) {
                 if (command.equals("/exit"))
                     break;
-                System.out.printf("Sent from client: %s\n", command);
+                logger.log(Level.INFO, "Sent from client: {0}\n", command);
                 out.print(command);
             }
         } catch (IOException e) {
@@ -39,6 +43,7 @@ public class ClientHandler implements Runnable {
                     clientSocket.close();
                 }
             } catch (IOException e) {
+                logger.log(Level.SEVERE, e.getMessage());
                 throw new RuntimeException(e.getMessage());
             }
         }
