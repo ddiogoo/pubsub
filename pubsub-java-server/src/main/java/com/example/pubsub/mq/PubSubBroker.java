@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,16 +46,22 @@ public class PubSubBroker {
   }
 
   public void consume(String topic) {
+    new Thread(() -> consumeMessages(topic)).start();
+  }
+
+  private void consumeMessages(String topic) {
     List<PubSubSubscriber> subs = this.subscribers.get(topic);
     if (subs == null) {
       logger.log(Level.INFO, "No subscribers for topic: {0}", topic);
       return;
     }
     subs.forEach(subscriber -> {
-      String message = subscriber.consume();
-      logger.log(Level.INFO, "Message consumed: {0} by subscriber: {1}", new Object[]{
-        message == null ? message : "empty", subscriber.getClientId()
-      });
+      BlockingQueue<String> messages = subscriber.getMessages();
+      for (String message : messages) {
+        logger.log(Level.INFO, "Message consumed: {0} by subscriber: {1}", new Object[]{
+          message == null ? message : "empty", subscriber.getClientId()
+        });
+      }
     });
   }
 }
